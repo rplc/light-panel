@@ -9,7 +9,7 @@ iterations = 20
 increment = 1.0 / 20
 
 
-for x in range(0, 20)
+for x in range(0, iterations):
     v = x * increment
 
     green.value = v
