@@ -16,6 +16,7 @@ sock.bind((UDP_IP, UDP_PORT))
 
 while True:
     data, addr = sock.recvfrom(1024)
+    print("Received the following: ", data.decode())
 
     try:
         payload = json.loads(data.decode())
