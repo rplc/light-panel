@@ -8,7 +8,7 @@ def signal_handler(sig, frame):
     lightpanel.shutdown()
 signal.signal(signal.SIGINT, signal_handler)
 
-UDP_IP = "127.0.0.1"
+UDP_IP = ""
 UDP_PORT = 5007
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -16,8 +16,7 @@ sock.bind((UDP_IP, UDP_PORT))
 
 while True:
     data, addr = sock.recvfrom(1024)
-    print("Received the following: ", data.decode())
-
+    
     try:
         payload = json.loads(data.decode())
         cmd = payload["cmd"]
@@ -31,5 +30,5 @@ while True:
             lightpanel.shutdown()
             print("shutdown received")
             sys.exit()
-    finally:
-        print("some error occured")
+    except:
+        pass
