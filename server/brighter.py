@@ -8,6 +8,8 @@ blue = PWMOutputDevice(21)
 iterations = 20
 increment = 1.0 / 20
 
+print("init done")
+
 for x in range(0, iterations):
     v = x * increment
 
