@@ -16,7 +16,7 @@ sock.bind((UDP_IP, UDP_PORT))
 
 while True:
     data, addr = sock.recvfrom(1024)
-    
+
     try:
         payload = json.loads(data.decode())
         cmd = payload["cmd"]
@@ -29,6 +29,7 @@ while True:
             #TODO shutdown
             lightpanel.shutdown()
             print("shutdown received")
-            sys.exit()
+            break
     except:
+        print("exception triggered")
         pass
