@@ -1,14 +1,14 @@
 from gpiozero import PWMOutputDevice
-import time
-import random
+from time import sleep
+from random import uniform
 
 green = PWMOutputDevice(16)
 red = PWMOutputDevice(20)
 blue = PWMOutputDevice(21)
 
 while True:
-    green.value = random.uniform(0, 1.0)
-    red.value = random.uniform(0, 1.0)
-    blue.value = random.uniform(0, 1.0)
+    green.value = uniform(0, 1.0)
+    red.value = uniform(0, 1.0)
+    blue.value = uniform(0, 1.0)
 
-    time.sleep(1000)
+    sleep(1000)

@@ -1,5 +1,5 @@
 from gpiozero import PWMOutputDevice
-import time
+from time import sleep
 
 green = PWMOutputDevice(16)
 red = PWMOutputDevice(20)
@@ -16,4 +16,4 @@ for x in range(0, iterations):
     red.value = v
     blue.value = v
 
-    time.sleep(1000)
+    sleep(1000)
