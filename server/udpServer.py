@@ -1,0 +1,34 @@
+import socket
+import json
+import signal
+import lightpanel
+import sys
+
+def signal_handler(sig, frame):
+    lightpanel.shutdown()
+signal.signal(signal.SIGINT, signal_handler)
+
+UDP_IP = "127.0.0.1"
+UDP_PORT = 5007
+
+sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+sock.bind((UDP_IP, UDP_PORT))
+
+while True:
+    data, addr = sock.recvfrom(1024)
+
+    try:
+        payload = json.loads(data.decode())
+        cmd = payload["cmd"]
+
+        if cmd == "setColor":
+            #TODO set color to payload["arg"]
+            lightpanel.setColor(payload["arg"])
+            print("setColor to", payload["arg"])
+        elif cmd == "shutdown":
+            #TODO shutdown
+            lightpanel.shutdown()
+            print("shutdown received")
+            sys.exit()
+    finally:
+        print("some error occured")
