@@ -8,12 +8,12 @@ blue = PWMOutputDevice(21)
 iterations = 20
 increment = 1.0 / 20
 
-
 for x in range(0, iterations):
     v = x * increment
 
+    print(v)
     green.value = v
     red.value = v
     blue.value = v
 
-    sleep(1000)
+    sleep(1)

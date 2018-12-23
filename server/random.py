@@ -11,4 +11,4 @@ while True:
     red.value = uniform(0, 1.0)
     blue.value = uniform(0, 1.0)
 
-    sleep(1000)
+    sleep(1)
