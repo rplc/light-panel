@@ -22,14 +22,13 @@ while True:
         cmd = payload["cmd"]
 
         if cmd == "setColor":
-            #TODO set color to payload["arg"]
             lightpanel.setColor(payload["arg"])
             print("setColor to", payload["arg"])
+
         elif cmd == "shutdown":
-            #TODO shutdown
             lightpanel.shutdown()
             print("shutdown received")
-            break
+            break #break the while true loop
     except:
         print("exception triggered")
         pass

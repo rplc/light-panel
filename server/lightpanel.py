@@ -1,4 +1,5 @@
 from gpiozero import PWMOutputDevice
+from time import sleep
 
 green = PWMOutputDevice(16)
 red = PWMOutputDevice(20)
@@ -13,6 +14,7 @@ def setColor(hexColor):
 
 def shutdown():
     setColor('#000000')
+    sleep(0.05)
     green.close()
     red.close()
     blue.close()
