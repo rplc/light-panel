@@ -8,11 +8,8 @@ def signal_handler(sig, frame):
     lightpanel.shutdown()
 signal.signal(signal.SIGINT, signal_handler)
 
-UDP_IP = ""
-UDP_PORT = 5007
-
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-sock.bind((UDP_IP, UDP_PORT))
+sock.bind(("127.0.0.1", 5007))
 
 while True:
     data, addr = sock.recvfrom(1024)

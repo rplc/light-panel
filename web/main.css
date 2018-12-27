@@ -1,0 +1,25 @@
+.outerField {
+    display: inline-block;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin: 10px;
+}
+
+.colorField, .colorField span {
+    --size: 100px;
+}
+
+.colorField {
+    width: var(--size);
+    height: var(--size);
+    margin: 3px;
+    border-radius:5px;
+    text-align: center;
+}
+
+.colorField span {
+    background-color: rgba(255, 255, 255, 0.8);
+    line-height: var(--size);
+    border-radius: 2px;
+    padding: 3px;
+}
