@@ -2,18 +2,8 @@ const picker = document.querySelector("color-picker");
 
 picker.addEventListener("color-change", () => {
   const { state } = picker;
-  console.log(state); // => object containing the current rgb, hsb and hex values
   //TODO set post to udp server
 });
-
-//set color:
-function setColor() {
-    picker.hexInput.value = '876B9C';
-    picker.hexInput.dispatchEvent(new Event('input', {
-        'bubbles': true,
-        'cancelable': true
-    }));
-}
 
 function saveColor() {
     currentColor = picker.state.hex;
@@ -22,6 +12,7 @@ function saveColor() {
     if (!~colors.indexOf(currentColor)) {
         colors.unshift(currentColor);
         LSsaveColors(colors);
+        updateSavedColors();
     } else {
         console.warn('color already saved');
     }
@@ -45,10 +36,40 @@ function updateSavedColors() {
     let innerHTML = '';
 
     colors.forEach(c => {
-        innerHTML += '<div class="outerField"><div class="colorField" style="background-color: ' + c + ';"><span>#' + c + '</span></div></div>';
+        innerHTML += '<div class="outerField" data-color="' + c + '"><div class="removeButton" onclick="javascript:removeColor(this)">X</div><div class="colorField" style="background-color: ' + c + ';" onclick="javascript:setColor(this)"><span>#' + c + '</span></div></div>';
     });
 
     element.innerHTML = innerHTML;
 }
 
 updateSavedColors();
+
+function removeColor(btn) {
+    const c = btn.parentElement.getAttribute('data-color'),
+        colors = LSgetColors()
+        idx = colors.indexOf(c);
+    
+    if (!~idx) {
+        console.warn('Warning: Color ' + c + ' not found.');
+        return;
+    }
+
+    colors.splice(idx, 1);
+    LSsaveColors(colors);
+
+    updateSavedColors();
+}
+
+function setColor(btn) {
+    const c = btn.parentElement.getAttribute('data-color');
+
+    if (!c) {
+        console.warn('Warning: missing color attribute!');
+    }
+
+    picker.hexInput.value = c;
+    picker.hexInput.dispatchEvent(new Event('input', {
+        'bubbles': true,
+        'cancelable': true
+    }));
+}
