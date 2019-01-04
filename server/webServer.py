@@ -1,10 +1,21 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
-import lightpanel
+#import lightpanel
 from os import path, sep, system
 import json
+import threading
 
 PORT_NUMBER = 8080
 webPath = sep + '..' + sep + 'web'
+
+def killAllLightpanels(server):	
+	threading.Thread(target=server.shutdown, daemon=True).start()
+
+	try:
+		lightpanel.shutdown()
+	except:
+		pass
+
+	#system('systemctl poweroff')
 
 class myHandler(BaseHTTPRequestHandler):
 	
@@ -53,21 +64,26 @@ class myHandler(BaseHTTPRequestHandler):
 			self.send_error(404,'File Not Found: %s' % self.path)
 
 	def do_POST(self):
-		content_length = int(self.headers['Content-Length'])
-		data = self.rfile.read(content_length)
+		if self.path == '/api/setColor':
+			content_length = int(self.headers['Content-Length'])
+			data = self.rfile.read(content_length)
 
-		if data == "" or self.headers['Content-Type'] != 'application/json':
-			self.send_error(400, 'Empty data or not json.')
-		else:
-			parsed = json.loads(data)
+			if data == '' or self.headers['Content-Type'] != 'application/json':
+				self.send_error(400, 'Empty data or not json.')
+			else:
+				parsed = json.loads(data)
 
-			try:
-				lightpanel.setColor(parsed['color'])
+				try:
+					lightpanel.setColor(parsed['color'])
 
-				self.send_response(200)
-				self.end_headers()
-			except:
-				self.send_error(418, 'Some error while setting the color occured.')
+					self.send_response(200)
+					self.end_headers()
+				except:
+					self.send_error(418, 'Some error while setting the color occured.')
+		elif self.path == '/api/shutdown':
+			print('Shutting the server down via api request')
+
+			killAllLightpanels(server)
 
 try:
 	#Create a web server and define the handler to manage the
@@ -79,12 +95,5 @@ try:
 	server.serve_forever()
 
 except KeyboardInterrupt:
-	print('^C received, shutting down the web server')
-	server.socket.close()
-
-	try:
-		lightpanel.shutdown()
-	except:
-		pass
-	
-	system('shutdown -s')
+	print('Shutting the server down via ^C')
+	killAllLightpanels(server)
