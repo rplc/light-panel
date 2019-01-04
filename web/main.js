@@ -1,8 +1,25 @@
 const picker = document.querySelector("color-picker");
 
 picker.addEventListener("color-change", () => {
-  const { state } = picker;
-  //TODO set post to udp server
+    const { state } = picker;
+
+    fetch('api/setColor', {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            color: state.hex
+        })
+    }).then(response => {
+        if (response && response.status === 200) {
+            console.log('color set to ' + state.hex)
+        } else {
+            console.log('Color could not be set.')
+        }
+    }).catch(err => {
+        console.log(err)
+    });
 });
 
 function saveColor() {

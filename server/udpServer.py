@@ -9,6 +9,7 @@ def signal_handler(sig, frame):
 signal.signal(signal.SIGINT, signal_handler)
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+# only accept request from myself! otherwise: sock.bind(("", 5007))
 sock.bind(("127.0.0.1", 5007))
 
 while True:

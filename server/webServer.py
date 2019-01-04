@@ -1,23 +1,20 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
-from os import path, sep
+import lightpanel
+from os import path, sep, system
+import json
 
 PORT_NUMBER = 8080
 webPath = sep + '..' + sep + 'web'
 
-#This class will handles any incoming request from
-#the browser 
 class myHandler(BaseHTTPRequestHandler):
 	
-	#Handler for the GcurdirET requests
 	def do_GET(self):
 		if self.path == "/":
 			self.path = "/index.html"
 
 		try:
-			#Check the file extension required and
-			#set the right mime type
-
 			sendReply = False
+			# Check the mimetype of the requested file
 			if self.path.endswith(".html"):
 				mimetype = 'text/html'
 				sendReply = True
@@ -55,6 +52,23 @@ class myHandler(BaseHTTPRequestHandler):
 		except IOError:
 			self.send_error(404,'File Not Found: %s' % self.path)
 
+	def do_POST(self):
+		content_length = int(self.headers['Content-Length'])
+		data = self.rfile.read(content_length)
+
+		if data == "" or self.headers['Content-Type'] != 'application/json':
+			self.send_error(400, 'Empty data or not json.')
+		else:
+			parsed = json.loads(data)
+
+			try:
+				lightpanel.setColor(parsed['color'])
+
+				self.send_response(200)
+				self.end_headers()
+			except:
+				self.send_error(418, 'Some error while setting the color occured.')
+
 try:
 	#Create a web server and define the handler to manage the
 	#incoming request
@@ -67,3 +81,10 @@ try:
 except KeyboardInterrupt:
 	print('^C received, shutting down the web server')
 	server.socket.close()
+
+	try:
+		lightpanel.shutdown()
+	except:
+		pass
+	
+	system('shutdown -s')
