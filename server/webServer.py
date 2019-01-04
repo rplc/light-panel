@@ -71,6 +71,7 @@ class myHandler(BaseHTTPRequestHandler):
 			if data == '' or self.headers['Content-Type'] != 'application/json':
 				self.send_error(400, 'Empty data or not json.')
 			else:
+				print(data)
 				parsed = json.loads(data)
 
 				try:
