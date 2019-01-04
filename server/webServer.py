@@ -15,7 +15,7 @@ def killAllLightpanels(server):
 	except:
 		pass
 
-	#system('systemctl poweroff')
+	system('systemctl poweroff')
 
 class myHandler(BaseHTTPRequestHandler):
 	
