@@ -67,11 +67,11 @@ class myHandler(BaseHTTPRequestHandler):
 		if self.path == '/api/setColor':
 			content_length = int(self.headers['Content-Length'])
 			data = self.rfile.read(content_length)
+			data = data.decode('utf-8')
 
 			if data == '' or self.headers['Content-Type'] != 'application/json':
 				self.send_error(400, 'Empty data or not json.')
 			else:
-				print(data)
 				parsed = json.loads(data)
 
 				try:
