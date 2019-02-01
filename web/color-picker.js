@@ -210,7 +210,7 @@
     input {
       margin: 0;
       border-width: 0 0 0 1px;
-      width: 175px;
+      width: 180px;
       padding: 2px 0 2px 4px;
     }
     [type=number] {
