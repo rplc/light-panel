@@ -1,6 +1,6 @@
 - check repo out in /opt/lightpanel
+- sudo apt-get install python3 python3-dev ipython3 python3-pip python3-gpiozero
 - Copy lightpanel.service to /etc/systemd/system/lightpanel.service
 - sudo systemctl daemon-reload
 - sudo systemctl start lightpanel.service
-- sudo enable lightpanel.service
-
+- sudo systemctl enable lightpanel.service
