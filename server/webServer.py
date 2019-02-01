@@ -1,5 +1,5 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
-#import lightpanel
+import lightpanel
 from os import path, sep, system
 import json
 import threading
