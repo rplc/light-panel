@@ -7,11 +7,12 @@
     </head>
     <body>
         <color-picker></color-picker>
-        <button class="success" onclick="javascript:saveColor()">Save color</button>
+        <div>
+            <button class="success" onclick="javascript:saveColor()">Save color</button>
+            <button class="danger right" onclick="javascript:shutdown()">Shutdown</button>
+        </div>
 
         <div class="savedColors" id="colorsHolder"></div>
-
-        <button class="danger" onclick="javascript:shutdown()">Shutdown</button>
 
         <script src="main.js"></script>
         <script src="color-picker.js"></script>

@@ -53,7 +53,7 @@ function updateSavedColors() {
     let innerHTML = ''
 
     colors.forEach(c => {
-        innerHTML += '<div class="outerField" data-color="' + c + '"><div class="removeButton" onclick="javascript:removeColor(this)">X</div><div class="colorField" style="background-color: ' + c + ';" onclick="javascript:setColor(this)"><span>#' + c + '</span></div></div>'
+        innerHTML += '<div class="outerField" data-color="' + c + '"><div class="removeButton" onclick="javascript:removeColor(this)">X</div><div class="colorField" style="background-color: #' + c + ';" onclick="javascript:setColor(this)"><span>#' + c + '</span></div></div>'
     });
 
     element.innerHTML = innerHTML

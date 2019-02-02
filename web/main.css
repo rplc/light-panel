@@ -17,6 +17,7 @@ button {
     padding: 10px;
     border-radius: 5px;
     margin: 5px;
+    cursor: pointer;
 }
 
 .success {
@@ -31,6 +32,12 @@ button {
     color: white;
 }
 
+.right {
+    float: right;
+}
+.right:after {
+    clear: both;
+}
 
 .outerField {
     display: inline-block;
