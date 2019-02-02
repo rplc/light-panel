@@ -35,6 +35,7 @@ button {
 .right {
     float: right;
 }
+
 .right:after {
     clear: both;
 }
